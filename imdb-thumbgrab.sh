@@ -1,7 +1,7 @@
 #!/bin/sh
 # Dumb Terminal  -  http://dt.tehspork.com
 # iMDB ThumbGrab
-VER="0.1.3"
+VER="0.1.4"
 # Grab image thumbnails from IMDB.com
 ##
 # Smaller than Life Projects
@@ -14,22 +14,20 @@ VER="0.1.3"
 # iMDB-ThumbGrab  -  https://github.com/dumbterminal/DT-miNfo/blob/master/imdb-thumbgrab.sh
 ###########################
 # iMDB-ThumbGrab Depends on
-#  Curl  -  http://curl.haxx.se
+#  ELinks  -  http://elinks.or.cz/
 #  WGet  -  http://www.gnu.org/software/wget/ 
 ##
 #
-CURL="/usr/bin/curl"
+ELINKS="/usr/bin/elinks"
 WGET="/usr/bin/wget"
 #
 echo " iMBD ThumbGrab V. $VER"
 sleep 2
 # check's
-# curl
-if [[ -z $( type -p curl ) ]]; then 
-  echo -e "curl -- NOT INSTALLED !";exit
-fi
-# wget
-if [[ -z $( type -p wget ) ]]; then 
+# elinks & wget
+if [[ -z $( type -p elinks ) ]]; then 
+  echo -e "elinks -- NOT INSTALLED !";exit
+elif [[ -z $( type -p wget ) ]]; then 
   echo -e "wget -- NOT INSTALLED !";exit
 fi
 # IMDB Title
@@ -54,8 +52,8 @@ fi
 #
 cd $COVER
 LINKNAIL="http://www.imdb.com/title/${TTCODE}/"
-$CURL -dump $LINKNAIL > $miNfo/cover/txt/link.txt
-cat $miNfo/cover/txt/link.txt | grep -A1 -i '<div class="photo">' | sed -e 1d -e 's|.*src="||' | cut -f 1 -d '"' > $miNfo/cover/txt/link2.txt
+$ELINKS -dump -dump-width 300 "$LINKNAIL" > $miNfo/cover/txt/link.txt
+cat $miNfo/cover/txt/link.txt | grep "http://ia.media-imdb.com/images/" | awk '{print $2}' > $miNfo/cover/txt/link2.txt
 GRABNAIL=$(cat $miNfo/cover/txt/link2.txt)
 if [ $GRABNAIL == ]; then
 echo "Sorry No Thumbnail..."
