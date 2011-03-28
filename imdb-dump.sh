@@ -1,15 +1,17 @@
 #!/bin/sh
+# Dumb Terminal  -  http://dt.tehspork.com
 # IMDB Dump Script.
 VER="0.6-1"
-# http://script.m-redd.com
+# Dumps select info from IMBD.com
+##
 # Smaller than Life Projects
 # By: MreDD
-# projects - at - 0tue0 (dot) com
-# a tool for <a href="http://script.m-redd.com/dvdre.htm">DvDre x264 to MKV|MP4</a>
-# for use with
-# <a href="http://script.m-redd.com/mi-nfocreate.htm">MI nfoCreate Script</a>
-# <a href="http://script.m-redd.com/imdb-thumbgrab.htm">iMDB-ThumbGrab Script</a>
-#
+# projects - at - Git Hub for use with
+# miNfo - Mediainfo .nfo Creator
+# https://github.com/dumbterminal/DT-miNfo
+# MI nfoCreate  -  https://github.com/dumbterminal/DT-miNfo/blob/master/mi-nfocreate.sh
+# iMDB-Dump  -  https://github.com/dumbterminal/DT-miNfo/blob/master/imdb-dump.sh
+# iMDB-ThumbGrab  -  https://github.com/dumbterminal/DT-miNfo/blob/master/imdb-thumbgrab.sh
 ###########################
 #
 # IMDB Dump Depends on

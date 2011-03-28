@@ -1,28 +1,32 @@
 #!/bin/sh
+# Dumb Terminal  -  http://dt.tehspork.com
 # MI-NFOcreate (Mediainfo|IMDB-dump to .nfo .htm)
 VER="0.4.3"
 # Create NFO|HTM File
-# http://script.m-redd.com
+##
 # Smaller than Life Projects
 # By: MreDD
-# projects - at - 0tue0 (dot) com
-# a tool for <a href="http://script.m-redd.com/dvdre.htm">DvDre x264 to MKV|MP4</a>
-#
+# projects - at - Git Hub for use with
+# miNfo - Mediainfo .nfo Creator
+# https://github.com/dumbterminal/DT-miNfo
+# MI nfoCreate  -  https://github.com/dumbterminal/DT-miNfo/blob/master/mi-nfocreate.sh
+# iMDB-Dump  -  https://github.com/dumbterminal/DT-miNfo/blob/master/imdb-dump.sh
+# iMDB-ThumbGrab  -  https://github.com/dumbterminal/DT-miNfo/blob/master/imdb-thumbgrab.sh
 ###########################
 # Example of finished nfo|htm files here
 #
-# <a href="http://script.m-redd.com/Lucky.Number.Slevin%5b2006%5ddvdrip(reDD).nfo">Click for Example NFO File</a>
+# <a href="https://github.com/dumbterminal/DT-miNfo/blob/master/example-created.nfo">Click for Example NFO File</a>
 #
-# <a href="http://script.m-redd.com/Lucky.Number.Slevin%5b2006%5ddvdrip(reDD).htm">Click for Example HTM(L) File</a>
+# <a href="https://github.com/dumbterminal/DT-miNfo/blob/master/example-created.htm">Click for Example HTM(L) File</a>
 #
 ###########################
 #
 # MI NFOcreate Depends on
-# <a href="http://script.m-redd.com/imdb-dump.htm">iMDB-Dump Script</a>
-# <a href="http://script.m-redd.com/imdb-thumbgrab.htm">iMDB-ThumbGrab Script</a>
-# <a href="http://mediainfo.sourceforge.net/en">Mediainfo</a>
-# <a href="http://elinks.or.cz">eLinks</a>
-# <a href="http://curl.haxx.se">Curl</a>
+# iMDB-Dump  -  https://github.com/dumbterminal/DT-miNfo/blob/master/imdb-dump.sh
+# iMDB-ThumbGrab  -  https://github.com/dumbterminal/DT-miNfo/blob/master/imdb-thumbgrab.sh
+# Mediainfo  -  http://mediainfo.sourceforge.net/en
+# ELinks  -  http://elinks.or.cz
+# Curl  -  http://curl.haxx.se
 #
 ############################
 #

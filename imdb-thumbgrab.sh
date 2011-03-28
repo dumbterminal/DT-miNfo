@@ -1,20 +1,22 @@
 #!/bin/sh
+# Dumb Terminal  -  http://dt.tehspork.com
 # iMDB ThumbGrab
 VER="0.1.3"
-# Grab Thumbnails from IMDB.com
-# http://script.m-redd.com
+# Grab image thumbnails from IMDB.com
+##
 # Smaller than Life Projects
 # By: MreDD
-# projects - at - 0tue0 (dot) com
-# a tool for <a href="http://script.m-redd.com/dvdre.htm">DvDre x264 to MKV|MP4</a>
-# for use with
-# <a href="http://script.m-redd.com/mi-nfocreate.htm">MI nfoCreate Script</a>
-# <a href="http://script.m-redd.com/imdb-dump.htm">iMDB-Dump Script</a>
-#
+# projects - at - Git Hub for use with
+# miNfo - Mediainfo .nfo Creator
+# https://github.com/dumbterminal/DT-miNfo
+# MI nfoCreate  -  https://github.com/dumbterminal/DT-miNfo/blob/master/mi-nfocreate.sh
+# iMDB-Dump  -  https://github.com/dumbterminal/DT-miNfo/blob/master/imdb-dump.sh
+# iMDB-ThumbGrab  -  https://github.com/dumbterminal/DT-miNfo/blob/master/imdb-thumbgrab.sh
 ###########################
 # iMDB-ThumbGrab Depends on
-# <a href="http://curl.haxx.se">Curl</a>
-# <a href="http://www.gnu.org/software/wget/ ">WGet</a>
+#  Curl  -  http://curl.haxx.se
+#  WGet  -  http://www.gnu.org/software/wget/ 
+##
 #
 CURL="/usr/bin/curl"
 WGET="/usr/bin/wget"
