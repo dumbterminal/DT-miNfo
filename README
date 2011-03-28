@@ -1,0 +1,6 @@
+Dumb Terminal miNfo - Mediainfo Nfo Creator
+Scripts to Fetch|Grab Info from IMDb
+
+MI-NFOCreate - Uses IMDb-Dump and IMDb-ThumbGrab with MediaInfo http://mediainfo.sourceforge.net/ to Create a Custom NFO txt File for Media Files.
+IMDb-Dump - Dump IMDb Movies Info to Shell or a txt File.
+IMDb-ThumbGrab - Grab The Thumbnails of IMDb Movies (If Provided)

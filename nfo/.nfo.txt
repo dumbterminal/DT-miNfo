@@ -1,0 +1,2 @@
+NFO|HTM Save Folder Used with
+Mi nfoCreate, iMDB-Dump, and iMDB ThunbGrab
