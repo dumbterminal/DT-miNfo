@@ -4,8 +4,14 @@
 VER="0.4.3"
 # Create NFO|HTM File
 ##
+# http://dt.tehspork.com
+# Dumb Terminal
 # Smaller than Life Projects
-# By: MreDD
+# Main Page: http://dt.tehspork.com
+# Git Repo: https://github.com/dumbterminal/
+# By: MikereDD & veekahn
+# email: dumbterminal -at- tehspork.com
+#
 # projects - at - Git Hub for use with
 # miNfo - Mediainfo .nfo Creator
 # https://github.com/dumbterminal/DT-miNfo
