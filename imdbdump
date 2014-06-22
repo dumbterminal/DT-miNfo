@@ -1,0 +1,279 @@
+#!/bin/bash -
+#===============================================================================
+#
+FILE=imdbdump
+VER=0.4a
+#
+#         USAGE: ./imdbdump
+#
+#   DESCRIPTION: Bash script to search and dump IMDb info, stripped of color
+#
+#       OPTIONS: Help = -h
+#  REQUIREMENTS: Elinks, awk, cat, sed, grep, egrep, uniq, head, cut and sort.
+#          BUGS: ---
+#         NOTES: This script is a modified version imdbmoviefetcher, made to use Elinks instead of Lynx.
+#                While also working to add new features like the ratings bar and eventually a plug for
+#                miNfo 2. The old and semi broken miNfo can be found at https://github.com/dumbterminal/DT-miNfo
+#                imdbmoviefetcher written by Unni unnikrishnan.a@gmail.com
+#        AUTHOR: Mike Redd (MikereDD), mikeredd@mobileinfern.us
+#  ORGANIZATION: Dumb Terminal Team
+#       CREATED: 07/21/2012 06:20:12 PDT
+#      REVISION: 06/22/2014 16:57:23 PD
+#===============================================================================
+shopt -s -o nounset
+
+### Start Global variable declarations
+declare -rx GITREPO="https://github.com/MikereDD/imdbdump.git"
+declare -rx SCRIPT=${0##*/}
+declare -rx VERSION="${VER}"
+declare URL
+declare TITLE
+declare YEAR
+declare RATING
+declare PLOT
+declare MOVIE
+declare POSTER=0
+declare PARSEABLE=0
+declare SIMILAR=1
+declare DIRECTOR
+declare GENRE
+declare CAST
+declare POSTERURL
+declare POSTERFILE
+declare FILE
+declare VER
+declare -rx TMPFILE=$HOME/tmp/imdbdump/imdbdump.$$
+declare -rx PLOTFILE=$HOME/tmp/imdbdump/plot.$$.html
+declare -rx TMPPOSTER=$HOME/tmp/imdbdump/posters
+declare -rx ELINKS=`which elinks`
+declare -rx WGET=`which wget`
+declare -rx AWK=`which awk`
+declare -rx CAT=`which cat`
+declare -rx SED=`which sed`
+declare -rx EGREP=`which egrep`
+declare -rx GREP=`which grep`
+declare -rx UNIQ=`which uniq`
+declare -rx HEAD=`which head`
+declare -rx SORT=`which sort`
+declare -rx CUT=`which cut`
+declare -rx TR=`which tr`
+declare SWITCH
+declare -r OPTSTRING=":hvpmst:"
+### End Global
+
+### Start tmp check
+if [ ! -d $HOME/tmp/imdbdump/posters ]
+then
+    echo " We need to create a tmp directory for imdbdump"
+    echo "imdbdump uses $HOME/tmp/imdbdump/ by default"
+    echo " Creating tmp directory now."
+    mkdir -p $HOME/tmp/imdbdump/posters
+fi
+### End tmp check
+
+### Start Input Arguments/ Parametrs
+if [ $# -eq 0 ]
+then
+    printf "%s -h for more information\n" "$SCRIPT"
+exit 192
+fi
+while getopts "$OPTSTRING" SWITCH;do
+    case "$SWITCH" in
+h) cat << EOF
+   $SCRIPT [option] [arg]
+
+   Options :
+   -v : imdbdump version
+   -h : display help
+   -t [arg] : Pass the movie title as argument. It is recommended to quote the name as shown in the example below
+   -p : Download movie poster. Use it with -t option.
+   -m : Output in machine-readable format, easy for subsequent parsing. Use it with -t option.
+
+   Example :
+   $SCRIPT -t "evil dead"
+
+   Git repo at $GITREPO
+
+EOF
+   exit 0
+    ;;
+t) MOVIE="$OPTARG"
+    ;;
+p) POSTER="0"
+    ;;
+m) PARSEABLE="1"
+    ;;
+v) printf "IMDbdump version %s.\nBugs, Feature requests etc : %s\n" "$VERSION" "$GITREPO"
+   exit 0
+   ;;
+\?) printf "%s\n" "Invalid option. use $SCRIPT -h for more information"
+    exit 192
+    ;;
+*) printf "%s\n" "Invalid argument. use $SCRIPT -h for more information"
+   exit 192
+    ;;
+esac
+done
+
+[[ ${MOVIE:-unset} == 'unset' || -z $MOVIE ]] && { printf "Invalid input. Execute %s -h for more information\n" "$SCRIPT";exit 192;}
+
+#functions
+printnofound() {
+    printf "There is no $1 command. Please install it\n"
+}
+sancheck() {
+BINARY=$1
+if [ ! -x "$BINARY" ]
+then
+    printnofound $BINARY >&2
+    exit 192
+fi
+}
+### End Input
+
+### Start Sanity checks
+if [ -z "$BASH" ]
+then
+    printf "This script is written for bash. Please run this under bash\n" >&2
+    exit 192
+fi
+sancheck $ELINKS
+sancheck $WGET
+sancheck $AWK
+sancheck $CAT
+sancheck $EGREP
+sancheck $GREP
+sancheck $UNIQ
+sancheck $HEAD
+sancheck $SED
+sancheck $SORT
+sancheck $TR
+### End Sanity Check
+
+### Replace Special Characters in the Title Name Argument
+MOVIE=`echo $MOVIE | $SED -r 's/  */\+/g;s/\&/%26/g;s/\++$//g'`
+
+### Search the Title in Google
+$ELINKS -no-numbering --source "http://www.google.com/search?hl=en&q=$MOVIE+imdb" > $TMPFILE 2> /dev/null
+
+### Check if elinks is successful
+if [ $? -ne 0 ]
+then
+    printf "Connection to site failed...Please check your internet connection\n"
+    exit 192
+fi
+### Get IMDB URL for the film
+URL=`$EGREP -o "http://www.imdb.com/title/tt[0-9]*/" $TMPFILE | $HEAD -1`
+### Get similar titles
+SIMILARTITLES=`$EGREP -o "<a[^>]+>[^<]*(<b>[^<|^(imdb)]+</b>)*[^<]*<b>[^<]*</b>[^\(|^<]*\([0-9]+\)[^-]+-[^<]*<b>IMDb</b>" $TMPFILE | $GREP "www.imdb.com" | $SORT | $UNIQ | $SED 's/- <b>IMDb<\/b>//g' | $SED 's/<[^>]*>//g'`
+
+### Get the details from movie page
+$ELINKS -source  ${URL} > $TMPFILE;
+if [ $? -ne 0 ]
+then
+    printf "Connection to site failed...Please check your internet connection\n"
+    exit 192
+fi
+
+### Extract Year & Title
+YEAR=`$CAT $TMPFILE | $SED -n '/<h1.*>/,/<\/h1>/p' | $SED -n '/<span class="nobr".*>/,/<\/span>/p' | $SED '/^$/d;s/<[^>]*>//g;s/(//g;s/)//g' | $SED 's/&ndash;/ - /g'| $TR -d ' '`
+TITLE=`$CAT $TMPFILE | $SED -n '/<h1.*>/,/<\/h1>/p' | $SED -n 's/.*itemprop="name">//;s/<.*//p' | $TR -s ' '| $TR '\n' ' '`
+
+### Extract Poster Details
+POSTERURL=`$GREP "Poster" $TMPFILE -A1 | $GREP -o http.*\.jpg | $CUT -f 1 -d "_"`
+POSTERURL=${POSTERURL}jpg
+
+#if [ $POSTER -eq 1 ]
+#then
+if [ "${POSTERURL}" == "" ]
+then
+    echo ""
+else
+    POSTERFILE=`echo $TITLE | $SED "s/ /_/g"`
+    #$ELINKS -source $POSTERURL > $TMPPOSTER/${POSTERFILE}.jpg 2> /dev/null
+    echo -e $(wget -q "${POSTERURL}" -O $TMPPOSTER/${POSTERFILE}.jpg) 2> /dev/null
+fi
+### End Poster Details
+
+### Start Get Plot
+$SED -n '/.*<p itemprop="description">/,/<\/p>/p' $TMPFILE | $SED -n 's/.*itemprop="description">//;s/<.*//p' > $PLOTFILE
+PLOT=`$ELINKS --dump $PLOTFILE | $SED 's/^  *//g '`
+RATING=`$SED -n '/<span itemprop="ratingValue">/{ s/<[^>]*>//g;p;}' $TMPFILE  | $EGREP -o "[0-9]+\.[0-9]+/[0-9]+" | tail -1`
+DIRECTOR=`$SED -n '/ *tt_ov_dr.*/,/<\/div>/{p;}' $TMPFILE | $SED -n 's/.*itemprop="name">//;s/<.*//p'| $UNIQ | $TR -s ' '| $TR '\n' ','| $SED 's/ ,//g;s/^,//;s/,$//'`
+GENRE=`$GREP "ref_=tt_ov_inf" $TMPFILE| $GREP genre | $SED -n 's/.*itemprop="genre">//;s/<.*//p'| $UNIQ | $TR '\n' ','| $SED 's/^,//;s/,$//'`
+CAST=`$SED -n '/ *tt_ov_st.*/,/<\/div>/{p;}' $TMPFILE | $SED -n 's/.*itemprop="name">//;s/<.*//p'| $UNIQ | $TR -s ' '| $TR '\n' ','| $SED 's/ ,//g;s/^,//;s/,$//'`
+### End Get Plot
+
+### Start Rating bar
+SRATE=`$SED -n '/<span itemprop="ratingValue">/{ s/<[^>]*>//g;p;}' $TMPFILE  | $EGREP -o "[0-9]+\.[0-9]+/[0-9]+" | tail -1 | $CUT -f1 -d "/"`
+if [ "$SRATE" == " " ]
+then
+    SRATE='0'
+else
+    SRATE=`$SED -n '/<span itemprop="ratingValue">/{ s/<[^>]*>//g;p;}' $TMPFILE  | $EGREP -o "[0-9]+\.[0-9]+/[0-9]+" | tail -1 | $CUT -f1 -d "/" | $CUT -f 1 -d "."`
+fi
+
+RBARS=$(expr $SRATE / 1)
+
+case $RBARS in
+    1)
+        BAR='*---------]'
+        ;;
+    2)
+        BAR='**--------]'
+        ;;
+    3)
+        BAR='***-------]'
+        ;;
+    4)
+        BAR='****------]'
+        ;;
+    5)
+        BAR='*****-----]'
+        ;;
+    6)
+        BAR='******----]'
+        ;;
+    7)
+        BAR='*******---]'
+        ;;
+    8)
+        BAR='********--]'
+        ;;
+    9)
+        BAR='*********-]'
+        ;;
+    10)
+        BAR='**********]'
+        ;;
+    *)
+        BAR='[----------]'
+esac
+### End Rating Bar
+
+### Start Parseable
+if [ $PARSEABLE -eq 1 ]
+then
+    PLOT=`echo $PLOT | $TR -d '\n'`
+fi
+### End Parseable
+
+### Start Printing everything
+printf "\n$FILE    : $VER\n"
+printf "Title       : $TITLE\n"
+printf "Year        : $YEAR\n"
+printf "Rating      : $RATING $BAR\n"
+printf "Director    : $DIRECTOR\n"
+printf "Genres      : $GENRE\n"
+printf "Cast        : $CAST\n"
+printf "Plot        : %s\n" "$PLOT"
+printf "\nIMDbURL     : ${URL}\n"
+printf "Poster URL  : ${POSTERURL}\n\n"
+### End Print
+
+### Start Clean Up
+rm $TMPFILE > /dev/null
+rm $PLOTFILE > /dev/null
+### End Clean Up
+
+exit 0
