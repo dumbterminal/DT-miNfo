@@ -68,11 +68,11 @@ fi
 ############################
 #
 # Path to imdb-dump.sh
-IMDUMP="$miNfo/imdb-dump.sh"
+IMDUMP="$miNfo/imdbdump"
 # Path to minfohelp directory containing tag.txt, pre1.txt and pre2.txt Files - files w/get packed w/finished script.
 MINFOHELP="$miNfo/minfohelp"
 # Path to imdb-thumbgrab.sh
-IMDTHUM="$miNfo/imdb-thumbgrab.sh"
+IMDTHUM="$miNfo/imdbthumbgrab"
 THUMBNAIL="$TTCODE.jpg"
 #
 ############################
