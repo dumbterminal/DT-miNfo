@@ -88,7 +88,12 @@ THUMBNAIL="$TTCODE.jpg"
 ############################
 #
 # Path to Mediainfo
-MINFO="/usr/bin/mediainfo"
+MINFO=`which mediainfo`
+AWK=`which awk`
+CAT=`which cat`
+GREP=`which grep`
+TAIL=`which tail`
+WC=`which wc`
 #
 ############################
 ############################
@@ -167,7 +172,7 @@ echo " "
 sleep 2
 $MINFO * >> $TMPWRK/$TITLE.nfo
 $IMDUMP $TTCODE > $TMPWRK/$TTCODE.temp
-cat $MINFOHELP/tag.txt $TMPWRK/$TTCODE.temp $TMPWRK/$TITLE.nfo >> $SAVE/$TITLE/$TITLE.nfo
+$CAT $MINFOHELP/tag.txt $TMPWRK/$TTCODE.temp $TMPWRK/$TITLE.nfo >> $SAVE/$TITLE/$TITLE.nfo
 echo " -- Done Creating $TITLE.nfo File -- "
 echo " "
 sleep 1
@@ -175,16 +180,16 @@ echo " -- Creating $TITLE.htm File -- "
 sleep 2
 # Create the NFO in HTML File
 $MINFO --Output=HTML * >> $TMPWRK/$TITLE.htm
-lines=$(wc -l $TMPWRK/$TITLE.htm | awk '{print $1}')
+lines=$($WC -l $TMPWRK/$TITLE.htm | $AWK '{print $1}')
 x="$lines"
 y="8"
 sub=$(($x - $y))
-tail -$sub $TMPWRK/$TITLE.htm | awk -F\| '{print $1}' >> $TMPWRK/prt2.htm
-cat $TMPWRK/$TITLE.htm | grep "General" -B5 -A0 | awk -F\| '{print $1}' >> $TMPWRK/prt1.htm
-cat $TMPWRK/prt1.htm $MINFOHELP/pre1.txt >>  $TMPWRK/prt3.htm
-cat $MINFOHELP/pre2.txt $TMPWRK/prt2.htm >> $TMPWRK/prt4.htm
+$TAIL -$sub $TMPWRK/$TITLE.htm | $AWK -F\| '{print $1}' >> $TMPWRK/prt2.htm
+$CAT $TMPWRK/$TITLE.htm | $GREP "General" -B5 -A0 | $AWK -F\| '{print $1}' >> $TMPWRK/prt1.htm
+$CAT $TMPWRK/prt1.htm $MINFOHELP/pre1.txt >>  $TMPWRK/prt3.htm
+$CAT $MINFOHELP/pre2.txt $TMPWRK/prt2.htm >> $TMPWRK/prt4.htm
 echo ""
-cat $TMPWRK/prt3.htm $MINFOHELP/tag.txt $TMPWRK/$TTCODE.temp $TMPWRK/prt4.htm >> $SAVE/$TITLE/$TITLE.htm
+$CAT $TMPWRK/prt3.htm $MINFOHELP/tag.txt $TMPWRK/$TTCODE.temp $TMPWRK/prt4.htm >> $SAVE/$TITLE/$TITLE.htm
 echo " "
 sleep 1
 echo " -- Done Creating $TITLE.htm File -- "

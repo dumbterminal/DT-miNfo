@@ -1,40 +1,53 @@
-               ************************************************************************************
-               *                    -- NFO File Generated with MI-NFOCreate --                    *
-               *                              a script by: MreDD                                  *
-               *                                                                                  *
-               *                                   .ll.                                           *
-               *                                    cko.                                          *
-               *                                    ckd.                                          *
-               *                                    ckd.                                          *
-               *                                    ckd.                                          *
-               *                                    cko.          ...                             *
-               *                                    lkd,',;:cloodxxkxc                            *
-               *                         ',',;::clooxkkkkxxdolc:;,'..                             *
-               *                         :odddoollccdkd,...                                       *
-               *                            .      .lko.                                          *
-               *                                   .dko                                           *
-               *                                   'xkl                                           *
-               *                                   ,xkc                                           *
-               *                               ....ckko::::::::::cloodddddddddddddc.              *
-               *                   ..',;:cloodddxxxkxxxxdolcloxxdlcc::;;;,,,,,,,,;;.              *
-               *              .:codxkkkxdlc:;;,ldl,....      .okd.                                *
-               *              .:ol:,'...       .dkc           ckx'                                *
-               *                               .dko.         .dkd.                                *
-               *                               .dko.         .xkl.                                *
-               *                               ,xkl          .xkc                                 *
-               *                               ;kkc          .xkc           ..                    *
-               *                 .:d:          ckx;          .xkc           'ool:.                *
-               *                'dOk;         .okx.          .xkl              .:do;.             *
-               *              .ckOl.          'xkd.          .xkl                 'ldc.           *
-               *            .:kOd,            :kkc           .xkl                   .;do,.        *
-               *          .:xOd;             .dkd.           .dko.                     ,dx;       *
-               *        .ckko,               ckkc            .dko.                       ..       *
-               *       .lo:.                ,xkd.            .okd.                                *
-               *                           'dkx,             .okd.                                *
-               *                          'dkx,         .;:. .okx.                                *
-               *                         ;xkd,           .ld:,dkd.                                *
-               *                         .;,.              'cdkkd.                                *
-               *                                             .,lc.                                *
-               *                                                                                  *
-               ************************************************************************************
+
+                -- NFO File Generated with MI-NFOCreate --
+                --         a script by: MreDD           --
+
+                              MMMMMM
+                                MMMMMMMM
+                                 MMMMMMMM
+                                 MMMMMMM
+                                 MMMMMMM
+                                 MMMMMMM
+                                 MMMMMMM
+                                 MMMMMMM    M
+                                 MMMMMM  MMMMMMMM
+                                 MMMMMMMMMMMMMMMMMM
+                           MMMMMMMMMMMMMMMMMMMMMM
+                     MMMMMMMMMMMMMMMMMMMMMM
+                         MMMMMMMMMMMMMM
+                                 MMMMMM
+                                 MMMMM
+                                 MMMMM
+                                 MMMMM                MMMMMMMMM
+                                 MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+                          MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+                    MMMMMMMMMMMM     MMM                   MMMMMMMMM
+      MMM     MMMMMMMMMMMMMM          MMMMM
+       MMMMMMMMMMMMMMM     MMMM        MMMMMM
+         MMMMMMMMM          MMMMM      MMMMMMM
+           MMMM             MMMMMM     MMMMMMM
+                            MMMMM      MMMMMMM
+                           MMMMMM       MMMMMM     MM
+               MM          MMMMMM       MMMMMM     MMMMM
+               MM          MMMMMM       MMMMM       MMMMMM
+              MMM          MMMMM        MMMMM        MMMMMMM
+              MMM         MMMMMM        MMMMM         MMMMMMM
+             MMMM         MMMMM         MMMMM          MMMMMMM
+            MMMMM        MMMMMM         MMMMM           MMMMMM
+             MMMM        MMMMM          MMMMM            MMMMMM
+             MMMM       MMMMM           MMMMM             MMMMM
+             MMM        MMMM           MMMMMM              MMM
+              MM       MMMMM           MMMMMM
+                       MMMM            MMMMMM
+                      MMMM     M       MMMMMM
+                     MMMM       MMMMMMMMMMMMMM
+                     MMM          MMMMMMMMMMMM
+                    MM             MMMMMMMMMMM
+                                     MMMMMMMMM
+                                       MMMMMMM
+                                          MMMM
+
+
+
+
 
