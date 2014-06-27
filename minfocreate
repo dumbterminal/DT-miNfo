@@ -217,8 +217,8 @@ echo " Moving Poster "
 sleep 1
 #$IMDTHUM $TTCODE
 sleep 1
-echo " -- Done with iMDB ThumbGrab -- "
-#echo " -- Renaming and Moving Thumbnail -- "
+#echo " -- Done with iMDB ThumbGrab -- "
+echo " -- Renaming and Moving Thumbnail -- "
 mv $POSTER/$TTITLE.jpg $SAVE/$TITLE/$TITLE.jpg
 echo " -- Done Renaming and Moving Thumbnail --"
 echo " "
