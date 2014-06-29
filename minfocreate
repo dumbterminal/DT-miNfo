@@ -2,7 +2,7 @@
 #===============================================================================
 #
 FILE=minfocreate
-VER=0.5a
+VER=0.5b
 #
 #         USAGE: ./minfocreate
 #
@@ -15,7 +15,7 @@ VER=0.5a
 #        AUTHOR: Mike Redd (MikereDD), mikeredd@mobileinfern.us
 #  ORGANIZATION: Dumb Terminal Team
 #       CREATED: 03/27/2011 02:35:12 PDT
-#      REVISION: 06/27/2014 18:48:05 PDT
+#      REVISION: 06/29/2014 12:47:45 PDT
 #===============================================================================
 
 ###########################
@@ -151,8 +151,8 @@ echo ""
 echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
 echo "%% iMBD Dump needs the title "
 echo "%%   from http://imdb.com"
-#echo "%% Example:  http://www.imdb.com/title/tt0083907"
-echo "%% title would be Evil Dead"
+echo "%% No Spaces use underscore _"
+echo "%% Example: Evil_Dead"
 echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
 echo ""
 echo " Type in the imdb movie title then press Enter"
@@ -223,6 +223,13 @@ mv $POSTER/$TTITLE.jpg $SAVE/$TITLE/$TITLE.jpg
 echo " -- Done Renaming and Moving Thumbnail --"
 echo " "
 sleep 1
+echo " -- Removing helper files --"
+rm $TMPWRK/$TITLE.htm
+rm $TMPWRK/$TITLE.nfo
+rm $TMPWRK/$TTITLE.temp
+sleep 1
+echo " -- Done removing cruft --"
+echo " "
 echo " -- Thank You for Using MI-nfoCreate -- "
 echo " -- a script by: MreDD -- "
 sleep 1
