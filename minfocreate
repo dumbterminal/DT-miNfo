@@ -61,7 +61,7 @@ VER=0.5b
 # Path to Working Directory
 VIDEODIR="$HOME/Rip/done"
 # Path to miNfo Directory
-miNfo="$HOME/tmp/miNfo"
+miNfo="/tmp/miNfo"
 # Path to SAVE nfo folder
 SAVE="$miNfo/nfo"
 # Path inside Temp Directory Script works in
@@ -84,12 +84,12 @@ fi
 ############################
 #
 # Path to imdbdump-nc
-IMDUMP="$HOME/bin/imdbdump-nc"
+IMDUMP=`which imdbdump-nc`
 POSTER="$HOME/tmp/imdbdump/posters"
 # Path to minfohelp directory containing tag.txt, pre1.txt and pre2.txt Files - files w/get packed w/finished script.
 MINFOHELP="$miNfo/minfohelp"
 # Path to imdb-thumbgrab.sh
-IMDTHUM="$miNfo/imdbthumbgrab"
+#IMDTHUM="$miNfo/imdbthumbgrab"
 THUMBNAIL="$TTITLE.jpg"
 #
 ############################
