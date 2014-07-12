@@ -61,7 +61,7 @@ VER=0.5b
 # Path to Working Directory
 VIDEODIR="$HOME/Rip/done"
 # Path to miNfo Directory
-miNfo="/tmp/miNfo"
+miNfo="$HOME/tmp/miNfo"
 # Path to SAVE nfo folder
 SAVE="$miNfo/nfo"
 # Path inside Temp Directory Script works in
@@ -84,12 +84,12 @@ fi
 ############################
 #
 # Path to imdbdump-nc
-IMDUMP=`which imdbdump-nc`
+IMDUMP="/usr/bin/imdbdump-nc"
 POSTER="$HOME/tmp/imdbdump/posters"
 # Path to minfohelp directory containing tag.txt, pre1.txt and pre2.txt Files - files w/get packed w/finished script.
 MINFOHELP="$miNfo/minfohelp"
 # Path to imdb-thumbgrab.sh
-#IMDTHUM="$miNfo/imdbthumbgrab"
+IMDTHUM="$miNfo/imdbthumbgrab"
 THUMBNAIL="$TTITLE.jpg"
 #
 ############################
@@ -135,15 +135,15 @@ echo "%% Press: (y|n) "
 echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
 read TITLE
 case $TITLE in
-	y|yes)
-	  echo "Enter Title Name: "
+    y|yes)
+      echo "Enter Title Name: "
           echo "------------------"
-	   	read TITLE ;;
-	n|no)
-		TITLE=$(ls | sed '$s/....$//') ;;
-	*)
-	echo "Error Valid Choices are y|n"
-	exit 1 ;;
+        read TITLE ;;
+    n|no)
+        TITLE=$(ls | sed '$s/....$//') ;;
+    *)
+    echo "Error Valid Choices are y|n"
+    exit 1 ;;
     esac
 echo ""
 echo ""
