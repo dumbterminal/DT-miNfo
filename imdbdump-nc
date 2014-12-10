@@ -176,8 +176,10 @@ then
 fi
 
 ### Extract Year & Title
-YEAR=`$CAT $TMPFILE | $SED -n '/<h1.*>/,/<\/h1>/p' | $SED -n '/<span class="nobr".*>/,/<\/span>/p' | $SED '/^$/d;s/<[^>]*>//g;s/(//g;s/)//g' | $SED 's/&ndash;/ - /g'| $TR -d ' '`
-TITLE=`$CAT $TMPFILE | $SED -n '/<h1.*>/,/<\/h1>/p' | $SED -n 's/.*itemprop="name">//;s/<.*//p' | $TR -s ' '| $TR '\n' ' '`
+#YEAR=`cat $TMPFILE | $SED -n '/<h1.*>/,/<\/h1>/p' | $SED -n '/<span class="nobr".*>/,/<\/span>/p' | $SED '/^$/d;s/<[^>]*>//g;s/(//g;s/)//g' | $SED 's/&ndash;/ - /g'|tr -d ' '`
+#TITLE=`cat $TMPFILE | $SED -n '/<h1.*>/,/<\/h1>/p' | $SED -n 's/.*itemprop="name">//;s/<.*//p' |tr -s ' '|tr '\n' ' '`
+YEAR=`$CAT $TMPFILE | $SED -n '/<h1.*>/,/<\/h1>/p' | $SED -n '/<span class="nobr".*>/,/<\/span>/p' | $SED '/^$/d;s/<[^>]*>//g;s/(//g;s/)//g' | $SED 's/&ndash;/ - /g'| $TR -d ' ' | $TR '\n' ' ' | $CUT -f2 -d '>'`
+TITLE=`$CAT $TMPFILE | $SED -n '/<h1.*>/,/<\/h1>/p' | $SED -n 's/.*itemprop="name">//;s/<.*//p' | $TR -s ' '| $TR '\n' ' ' | $CUT -f1 -d '>'`
 
 ### Extract Poster Details
 POSTERURL=`$GREP "Poster" $TMPFILE -A1 | $GREP -o http.*\.jpg | $CUT -f 1 -d "_"`
@@ -200,8 +202,8 @@ $SED -n '/.*<p itemprop="description">/,/<\/p>/p' $TMPFILE | $SED -n 's/.*itempr
 PLOT=`$ELINKS --dump $PLOTFILE | $SED 's/^  *//g '`
 RATING=`$SED -n '/<span itemprop="ratingValue">/{ s/<[^>]*>//g;p;}' $TMPFILE  | $EGREP -o "[0-9]+\.[0-9]+/[0-9]+" | tail -1`
 DIRECTOR=`$SED -n '/ *tt_ov_dr.*/,/<\/div>/{p;}' $TMPFILE | $SED -n 's/.*itemprop="name">//;s/<.*//p'| $UNIQ | $TR -s ' '| $TR '\n' ','| $SED 's/ ,//g;s/^,//;s/,$//'`
-GENRE=`$GREP "ref_=tt_ov_inf" $TMPFILE| $GREP genre | $SED -n 's/.*itemprop="genre">//;s/<.*//p'| $UNIQ | $TR '\n' ','| $SED 's/^,//;s/,$//'`
-CAST=`$SED -n '/ *tt_ov_st.*/,/<\/div>/{p;}' $TMPFILE | $SED -n 's/.*itemprop="name">//;s/<.*//p'| $UNIQ | $TR -s ' '| $TR '\n' ','| $SED 's/ ,//g;s/^,//;s/,$//'`
+GENRE=`$GREP "ref_=tt_ov_inf" $TMPFILE | $GREP genre | $UNIQ | $SED 's|<a href="/genre/||' | $SED 's|?ref_=tt_ov_inf"||' | $TR '\n' ', '`
+CAST=`$SED -n '/ *tt_ov_st.*/,/<\/div>/{p;}' $TMPFILE | $SED -n 's/.*itemprop="name">//;s/<.*//p'| $UNIQ | $TR -s ' '| $TR '\n' ','| $SED 's/ ,//g;s/^,//;s/,$//' | $CUT -f1 -d '=' | $SED 's/itemprop//'`
 ### End Get Plot
 
 ### Start Rating bar
